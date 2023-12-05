@@ -41,7 +41,7 @@ export default function HomeScreen() {
         {/* Se realiza carousel para las peliculas */}
         <CarouselMovies data={carousel}/>
         {/* Componente para listar las peliculas por estrenar */}
-        <MovieList title="Upcoming" data={movieList}/>
+        <MovieList title="Estrenos" data={movieList}/>
         
       </ScrollView>
     </View>
