@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from "react";
 import {
   Alert,
-  StyleSheet,
   Text,
   TextInput,
   ToastAndroid,
@@ -13,26 +12,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import "react-native-gesture-handler";
 import "rn-overlay";
+import AppNavigation from './Navigation/appNavigation';
 
-export default function Main() {
+export default function App() {
 
-  return <AppRouter />;
+  return <AppNavigation />;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    textAlignVertical: "center",
-    fontSize: 48,
-  },
-  content: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textContainer: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-});
