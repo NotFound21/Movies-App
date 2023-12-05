@@ -8,11 +8,16 @@ import {
 } from "react-native-heroicons/outline";
 import { styles } from "../theme";
 import CarouselMovies from "../components/carouselMovies";
+import MovieList from "../components/movieList";
 
 const ios = Platform.OS == "ios";
 
 export default function HomeScreen() {
   const [carousel, setCarousel] = useState([1,2,3])
+  const [movieList, setMovieList] = useState([1,2,3])
+  const [topRated, setTopRated] = useState([1,2,3])
+
+
   return (
     <View className="flex-1 bg-neutral-900 mt-8">
       <SafeAreaView
@@ -35,6 +40,8 @@ export default function HomeScreen() {
       contentContainerStyle={{paddingBottom:10}}>
         {/* Se realiza carousel para las peliculas */}
         <CarouselMovies data={carousel}/>
+        {/* Componente para listar las peliculas por estrenar */}
+        <MovieList title="Upcoming" data={movieList}/>
         
       </ScrollView>
     </View>
