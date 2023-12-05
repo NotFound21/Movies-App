@@ -14,6 +14,7 @@ import { HeartIcon } from "react-native-heroicons/solid";
 import { styles, theme } from "../theme";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import Cast from "../components/cast";
 
 var { width, height } = Dimensions.get("window");
 const ios = Platform.OS == "ios";
@@ -64,7 +65,7 @@ export default function MovieScreen() {
         </SafeAreaView>
         <View>
           <Image
-            source={require("../assets/images/imagesPoster1.jpg")}
+            source={require("../assets/images/imagesPoster2.png")}
             style={{ width, height: height * 0.55 }}
           />
           <LinearGradient
@@ -81,10 +82,34 @@ export default function MovieScreen() {
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
           {movieName}
         </Text>
+        {/* El estado, el release, etc */}
         <Text className="text-neutral-400 font-semibold text-base text-center">
           Muy Pronto • 2024 • 170 min
         </Text>
+        {/* Generos de la pelicula */}
+        <View className="flex-row justify-center mx-4 space-x-2">
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            Action •
+          </Text>
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            Comedy
+          </Text>
+        </View>
+        {/* Descripcion de pelicula */}
+        <Text className="text-neutral-400 mx-4 tracking-wide">
+          El final de 'Spider-Man: No Way Home' podría darnos a entender un
+          cierre de franquicia. El Peter Parker de Tom Holland se independiza
+          del MCU y los Vengadores y comienza una vida como justiciero en
+          solitario. Su futuro nos lo podemos imaginar como lo hacemos con la de
+          sus compañeros de multiverso, los Peter Parker de Tobey Maguire y
+          Andrew Garfield. Sin embargo, hay varias cosas que se quedan
+          pendientes. Para empezar, la aparición de Daredevil, por no hablar de
+          la llegada de Kingpin a 'Ojo de halcón' y, por tanto, al crimen de
+          Nueva York, territorio de Spider-Man.
+        </Text>
       </View>
+      {/* Parte de el elenco */}
+      <Cast navigation={navigation} cast={cast} />
     </ScrollView>
   );
 }

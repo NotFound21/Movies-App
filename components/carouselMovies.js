@@ -19,7 +19,7 @@ export default function CarouselMovies({ data }) {
   }
   return (
     <View className="mb-2">
-      <Text className="text-white text-xl mx-4 mb-5">Tendencias</Text>
+      <Text className="text-white text-xl mx-4 mb-5">Resultados</Text>
       <Carousel
         renderItem={({ item }) => <MovieCard item={item} handleClick={()=>handleClick(item)} />}
         data={data}
