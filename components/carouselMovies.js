@@ -14,14 +14,14 @@ import {useNavigation} from '@react-navigation/native'
 var { width, height } = Dimensions.get("window");
 export default function CarouselMovies({ data }) {
   const navigation =  useNavigation();
-  const handleClick = () => {
+  const handleClick = (item) => {
     navigation.navigate('Movie', item);
   }
   return (
     <View className="mb-2">
       <Text className="text-white text-xl mx-4 mb-5">Tendencias</Text>
       <Carousel
-        renderItem={({ item }) => <MovieCard item={item} handleClick={handleClick} />}
+        renderItem={({ item }) => <MovieCard item={item} handleClick={()=>handleClick(item)} />}
         data={data}
         firstItem={1}
         inactiveSlideOpacity={0.6}
