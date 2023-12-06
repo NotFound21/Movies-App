@@ -3,14 +3,16 @@ import { apiKey } from "../constants";
 import { Path } from "react-native-svg";
 
 //endpoints
-const apiBaseUrl = "https://www.omdbapi.com/";
+const apiBaseUrl = `https://www.omdbapi.com/?apiKey=${apiKey}&`;
 const releases = `${apiBaseUrl}`;
+const search = `${apiBaseUrl}`;
+const popular = `${apiBaseUrl}`;
 
 const apiCall = async (endpoint, params) => {
   const options = {
     method: "GET",
     url: endpoint,
-    params: { apiKey: apiKey, s: "Avengers", y: new Date().getFullYear() },
+    params: params ? params : { s: "Avengers", y: new Date().getFullYear() },
   };
 
   try {
@@ -24,4 +26,11 @@ const apiCall = async (endpoint, params) => {
 
 export const releasesMovies = () => {
   return apiCall(releases);
+};
+export const searchMovies = (params) => {
+  return apiCall(search, params);
+};
+
+export const popularMovies = (params) => {
+  return apiCall(popular, params);
 };

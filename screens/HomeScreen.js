@@ -16,25 +16,37 @@ import {
 import { styles } from "../theme";
 import CarouselMovies from "../components/carouselMovies";
 import MovieList from "../components/movieList";
-import { releasesMovies } from "../api/moviedb";
+import { popularMovies, releasesMovies } from "../api/moviedb";
+import { useNavigation } from "@react-navigation/native";
 
 const ios = Platform.OS == "ios";
 const topMargin = ios ? "" : " mt-9";
 export default function HomeScreen() {
-  const [carousel, setCarousel] = useState([1, 2, 3]);
+  const [carousel, setCarousel] = useState([]);
   const [movieList, setMovieList] = useState([]);
-  const [topRated, setTopRated] = useState([1, 2, 3]);
+  const [topRated, setTopRated] = useState([]);
   const [isactive, setisActive] = useState(false);
-  const [isLoading, setIsloading] = useState(true);
+  const [isLoading, setIsloading] = useState(false);
   const [Loading, setLoading] = useState(true);
+  const navigation = useNavigation();
   useEffect(() => {
     getMovies();
+    getPopular();
   }, []);
 
   const getMovies = async () => {
     const data = await releasesMovies();
     //console.log("get trending movies: ", data);
     if (data && data.Search) setMovieList(data.Search);
+    setLoading(false);
+  };
+  const getPopular = async () => {
+    const data = await popularMovies({
+      s: "saw",
+      page: '1'
+  });
+    //console.log("get trending movies: ", data);
+    if (data && data.Search) setCarousel(data.Search);
     setLoading(false);
   };
 
@@ -62,7 +74,7 @@ export default function HomeScreen() {
             </Text>
           )}
 
-          <TouchableOpacity onPress={() => setisActive(!isactive)}>
+          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
             <MagnifyingGlassIcon size="30" strokeWidth={3} color="white" />
           </TouchableOpacity>
         </View>
