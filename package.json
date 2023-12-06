@@ -12,6 +12,7 @@
     "@expo/webpack-config": "^19.0.0",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
+    "axios": "^1.6.2",
     "deprecated-react-native-prop-types": "^5.0.0",
     "expo": "^49.0.0",
     "expo-linear-gradient": "~12.3.0",
@@ -23,7 +24,7 @@
     "react-native-gesture-handler": "~2.12.0",
     "react-native-heroicons": "^3.2.0",
     "react-native-snap-carousel": "^3.9.1",
-    "react-native-svg": "13.9.0",
+    "react-native-svg": "^13.9.0",
     "react-native-web": "~0.19.6",
     "rn-overlay": "^0.4.0",
     "tailwind-rn": "^4.2.0"

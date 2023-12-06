@@ -20,16 +20,22 @@ import Cast from "../components/cast";
 
 var { width, height } = Dimensions.get("window");
 const ios = Platform.OS == "ios";
-const topMargin = ios ? "" : " mt-2";
+const topMargin = ios ? "" : " mt-1";
 
 export default function WelcomeScreen() {
   const navigation = useNavigation();
   useEffect(() => {}, []);
   return (
-    <ImageBackground source={require('../assets/images/background.jpg')} style={{width:width, height:height}}>
-      <View className="flex-1 justify-center content-center">
+    <ImageBackground
+      source={require("../assets/images/background.jpg")}
+      style={{ width: width, height: height * 1.25, alignItems:"center" }}
+    >
+      <Text className=" justify-center content-center items-center text-white font-bold mt-20">
+        Revisa tus peliculas favoritas
+      </Text>
+      <View className="flex-1 justify-center items-center content-center mb-60">
         <SafeAreaView
-          className={"w-full flex-row px-4 justify-center" + topMargin}
+          className={"w-full px-6 justify-center" + topMargin}
         >
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <View
