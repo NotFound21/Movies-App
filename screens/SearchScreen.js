@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { XMarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
@@ -28,33 +28,59 @@ export default function SearchScreen() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [number, setNumber] = useState(1);
+  const [searchtext, setText] = useState("");
 
-  const handleSearch = (search) => {
-    if (search && search.length > 2) {
+  const handleSearch = () => {
+    if (searchtext && searchtext.length > 2) {
+      // logs para verificar errores
+      //console.log("Search triggered with:", searchtext); 
       setLoading(true);
       searchMovies({
-        s: search,
+        s: searchtext,
         page: `${number}`,
       }).then((data) => {
-        //console.log("got search results", data.Search);
         setLoading(false);
-        if (data && data.Search) setResults(data.Search);
+        if (data && data.Search) {
+          //console.log("Search results:", data.Search); 
+          setResults(data.Search);
+        } else {
+          //console.log("No search results found."); 
+          setResults([]);
+        }
       });
     } else {
+      console.log("Search text too short or empty:", searchtext); // Log for debugging
       setLoading(false);
       setResults([]);
     }
   };
 
   const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
+  const handleSearchDebounced = useCallback(debounce(handleSearch, 400), [
+    number,
+  ]);
+  const handlePagination = (newPage) => {
+    setNumber(newPage);
+    handleSearchDebounced();
+  };
+
+  useEffect(() => {
+    const debouncedSearch = debounce(handleSearch, 400);
+    debouncedSearch();
+    return () => debouncedSearch.cancel();
+  }, [searchtext, number]);
 
   return (
     <SafeAreaView className="bg-neutral-800 flex-1">
       {/* Input de busqueda */}
       <View className="mx-4 mb-3 flex-row justify-between items-center border border-neutral-500 rounded-full">
         <TextInput
-          onChangeText={handleTextDebounce}
-          placeholder="Search Movie"
+          onChangeText={(text) => {
+            setText(text);
+            handleSearchDebounced();
+          }}
+          value={searchtext}
+          placeholder="Busca Una Pelicula"
           placeholderTextColor={"lightgray"}
           className="pb-1 pl-6 flex-1 text-base font-semibold text-white tracking-wider"
         />
@@ -81,23 +107,18 @@ export default function SearchScreen() {
             </Text>
             <View className="flex-row justify-between">
               <TouchableOpacity
-                disabled={number == 1}
-                onPress={() => {
-                  setNumber(number - 1), handleSearch();
-                }}
+                disabled={number === 1}
+                onPress={() => handlePagination(number - 1)}
                 style={styles.background}
                 className="rounded-xl p-1"
               >
                 <ChevronLeftIcon size="25" strokeWidth={2.5} color="white" />
               </TouchableOpacity>
               <Text className="text-white text-base font-semibold ">
-                {" "}
                 {number}
               </Text>
               <TouchableOpacity
-                onPress={() => {
-                  setNumber(number + 1), handleSearch();
-                }}
+                onPress={() => handlePagination(number + 1)}
                 style={styles.background}
                 className="rounded-xl p-1"
               >
