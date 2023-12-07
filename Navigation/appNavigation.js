@@ -12,8 +12,7 @@ const Stack = createNativeStackNavigator();
 export default function AppNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Loading">
-        <Stack.Screen name="Loading" component={LoadingScreen} />
+      <Stack.Navigator initialRouteName="Welcome">
         <Stack.Screen
           name="Welcome"
           options={{ headerShown: false }}
