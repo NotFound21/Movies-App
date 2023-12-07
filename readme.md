@@ -62,4 +62,4 @@ a esto:
   },
 ```
 
-![Se utiliza react-native 0.72.6 debido a su version estable en relacion a las dependencias de las librerias](h[ttp://url/to/img.png](https://github.com/NotFound21/Movies-App/blob/master/assets/images/react-native.png)https://github.com/NotFound21/Movies-App/blob/master/assets/images/react-native.png?raw=true)
+![Se utiliza react-native 0.72.6 debido a su version estable en relacion a las dependencias de las librerias](https://github.com/NotFound21/Movies-App/blob/master/assets/images/react-native.png?raw=true)
