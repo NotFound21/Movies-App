@@ -31,9 +31,9 @@ export default function SearchScreen() {
   const [searchtext, setText] = useState("");
 
   const handleSearch = () => {
-    if (searchtext && searchtext.length > 2) {
+    if (searchtext && searchtext.length > 3) {
       // logs para verificar errores
-      //console.log("Search triggered with:", searchtext); 
+      //console.log("Search triggered with:", searchtext);
       setLoading(true);
       searchMovies({
         s: searchtext,
@@ -41,21 +41,20 @@ export default function SearchScreen() {
       }).then((data) => {
         setLoading(false);
         if (data && data.Search) {
-          //console.log("Search results:", data.Search); 
+          //console.log("Search results:", data.Search);
           setResults(data.Search);
         } else {
-          //console.log("No search results found."); 
+          //console.log("No search results found.");
           setResults([]);
         }
       });
     } else {
-      console.log("Search text too short or empty:", searchtext); // Log for debugging
+      //console.log("Search text too short or empty:", searchtext); // Log for debugging
       setLoading(false);
       setResults([]);
     }
   };
 
-  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
   const handleSearchDebounced = useCallback(debounce(handleSearch, 400), [
     number,
   ]);
@@ -65,9 +64,11 @@ export default function SearchScreen() {
   };
 
   useEffect(() => {
-    const debouncedSearch = debounce(handleSearch, 400);
-    debouncedSearch();
-    return () => debouncedSearch.cancel();
+    const handleTextDebounce = debounce(handleSearch, 400);
+
+    handleTextDebounce();
+
+    return () => handleTextDebounce.cancel();
   }, [searchtext, number]);
 
   return (

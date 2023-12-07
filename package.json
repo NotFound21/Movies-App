@@ -26,6 +26,7 @@
     "react-native-heroicons": "^3.2.0",
     "react-native-progress": "^5.0.1",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^13.9.0",
     "react-native-web": "~0.19.6",
     "rn-overlay": "^0.4.0",
