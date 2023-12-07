@@ -5,13 +5,15 @@ import {
   ScrollView,
   TouchableOpacity,
   Platform,
+  Share,
   Image,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
-import { HeartIcon } from "react-native-heroicons/solid";
+import { HeartIcon, ShareIcon } from "react-native-heroicons/solid";
 import { styles, theme } from "../theme";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/cast";
@@ -55,6 +57,34 @@ export default function MovieScreen() {
     checkIfFavorite();
   }, [movie]);
 
+  const onShare = async () => {
+    try {
+      var title = `${movie.Title}`;
+      var desc = `${movie.Plot}`;
+      var url = `${movie.Poster}`;
+      const options = {
+        title: "Checa esta peli que encontré en mi aplicación!!",
+        message:
+          "Se llama: " +
+          title +
+          "\nTrata de: " +
+          desc +
+          " \n" +
+          "Imagen: " +
+          url,
+        url: url,
+      };
+      const result = await Share.share(options);
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+        } else {
+        }
+      } else if (result.action === Share.dismissedAction) {
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
   const toggleFavorite = async () => {
     try {
       let favorites = await AsyncStorage.getItem("favoriteMovies");
@@ -117,8 +147,11 @@ export default function MovieScreen() {
           >
             <ChevronLeftIcon size="25" strokeWidth={2.5} color="white" />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => onShare()}>
+            <ShareIcon size="40" color={"white"} />
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => toggleFavorite()}>
-            <HeartIcon size="35" color={isFavourite ? "red" : "black"} />
+            <HeartIcon size="40" color={isFavourite ? "red" : "black"} />
           </TouchableOpacity>
         </SafeAreaView>
         {loading ? (
@@ -148,7 +181,13 @@ export default function MovieScreen() {
 
         {/* Fecha de lanzamiento */}
         <Text className="text-neutral-400 font-semibold text-base text-center">
-          Estrenada • {movie.DVD ? movie.DVD : movie.Year} • {movie.Runtime}
+          Estrenada •{" "}
+          {movie.DVD
+            ? movie.DVD == "" || movie.Year == ""
+              ? "Muy pronto"
+              : movie.Year
+            : movie.Year}{" "}
+          • {movie.Runtime}
         </Text>
         {/* Genres */}
         <View className="flex-row justify-center mx-4 space-x-2">

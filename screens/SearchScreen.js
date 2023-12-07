@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Dimensions,
+  Alert,
 } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -29,27 +30,37 @@ export default function SearchScreen() {
   const [results, setResults] = useState([]);
   const [number, setNumber] = useState(1);
   const [searchtext, setText] = useState("");
+  const [movieType, setMovieType] = useState("");
+  const [releaseYear, setReleaseYear] = useState("");
+  const [isAdvancedSearch, setIsAdvancedSearch] = useState(false);
 
   const handleSearch = () => {
     if (searchtext && searchtext.length > 3) {
-      // logs para verificar errores
-      //console.log("Search triggered with:", searchtext);
       setLoading(true);
-      searchMovies({
+      const searchParams = {
         s: searchtext,
         page: `${number}`,
-      }).then((data) => {
+      };
+
+      if (isAdvancedSearch) {
+        if (movieType == "" || releaseYear == "") {
+          Alert.alert("Por favor llenar campos vacios ");
+          return null;
+        } else {
+          searchParams.type = movieType;
+          searchParams.y = releaseYear;
+        }
+      }
+
+      searchMovies(searchParams).then((data) => {
         setLoading(false);
         if (data && data.Search) {
-          //console.log("Search results:", data.Search);
           setResults(data.Search);
         } else {
-          //console.log("No search results found.");
           setResults([]);
         }
       });
     } else {
-      //console.log("Search text too short or empty:", searchtext); // Log for debugging
       setLoading(false);
       setResults([]);
     }
@@ -73,6 +84,31 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView className="bg-neutral-800 flex-1">
+      {/* Advanced Search Inputs */}
+      {isAdvancedSearch && (
+        <View className="mx-4 mb-3 justify-between ">
+          <View className="mx-1 mb-3 flex-row justify-between items-center border border-neutral-500 rounded-full">
+            {/* Movie Type Input */}
+            <TextInput
+              placeholderTextColor={"lightgray"}
+              className="p-6 pl- flex-1 text-justify  font-semibold text-white tracking-wider"
+              placeholder="Tipo pelicula: Movie, Series..."
+              onChangeText={(text) => setMovieType(text)}
+              value={movieType}
+            />
+          </View>
+          <View className="mx-1 mb-3 flex-row justify-between items-center border border-neutral-500 rounded-full">
+            {/* Release Year Input */}
+            <TextInput
+              placeholderTextColor={"lightgray"}
+              className="p-4 pl- flex-1 text-justify  font-semibold text-white tracking-wider"
+              placeholder="Año"
+              onChangeText={(text) => setReleaseYear(text)}
+              value={releaseYear}
+            />
+          </View>
+        </View>
+      )}
       {/* Input de busqueda */}
       <View className="mx-4 mb-3 flex-row justify-between items-center border border-neutral-500 rounded-full">
         <TextInput
@@ -81,15 +117,34 @@ export default function SearchScreen() {
             handleSearchDebounced();
           }}
           value={searchtext}
-          placeholder="Busca Una Pelicula"
+          placeholder={
+            isAdvancedSearch ? "Ingresa titulo" : "Busca Una Pelicula"
+          }
           placeholderTextColor={"lightgray"}
-          className="pb-1 pl-6 flex-1 text-base font-semibold text-white tracking-wider"
+          className="pb-1 p-4 pl-6 flex-1 text-justify font-semibold text-white tracking-wider"
         />
+
+        {
+          <TouchableOpacity
+            onPress={() =>
+              setIsAdvancedSearch(
+                !isAdvancedSearch,
+                setMovieType(""),
+                setReleaseYear("")
+              )
+            }
+            className="rounded-full p-3 m-1 bg-neutral-500"
+          >
+            <Text style={{ color: "white" }}>
+              {isAdvancedSearch ? "Simple" : "Advanced"}
+            </Text>
+          </TouchableOpacity>
+        }
         <TouchableOpacity
           onPress={() => navigation.navigate("Home")}
-          className="rounded-full p-3 m-1 bg-neutral-500"
+          className=" items-center  rounded-full p-3 m-1 bg-neutral-500"
         >
-          <XMarkIcon size="25" color="white" />
+          <XMarkIcon size="19" color="white" />
         </TouchableOpacity>
       </View>
 
