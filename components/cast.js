@@ -2,6 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
 export default function Cast({ cast, navigation }) {
+    //console.log(cast)
   let personName = "Tom Holland";
   let characterName = "Peter";
   return (
@@ -27,14 +28,14 @@ export default function Cast({ cast, navigation }) {
                   />
                 </View>
                 <Text className="text-white text-xs mt-1">
-                  {characterName.length > 10
-                    ? characterName.slice(0, 10) + "..."
-                    : characterName}
+                  {person.length > 10
+                    ? person.slice(0, 10) + "..."
+                    : person}
                 </Text>
                 <Text className="text-neutral-400 text-xs mt-1">
-                  {personName.length > 10
-                    ? personName.slice(0, 10) + "..."
-                    : personName}
+                  {person.length > 10
+                    ? person.slice(0, 10) + "..."
+                    : person}
                 </Text>
               </TouchableOpacity>
             );

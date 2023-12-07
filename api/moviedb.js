@@ -7,6 +7,9 @@ const apiBaseUrl = `https://www.omdbapi.com/?apiKey=${apiKey}&`;
 const releases = `${apiBaseUrl}`;
 const search = `${apiBaseUrl}`;
 const popular = `${apiBaseUrl}`;
+const details = `${apiBaseUrl}`;
+
+
 
 const apiCall = async (endpoint, params) => {
   const options = {
@@ -34,3 +37,7 @@ export const searchMovies = (params) => {
 export const popularMovies = (params) => {
   return apiCall(popular, params);
 };
+
+export const movieDetails = (params) =>{
+    return apiCall(details, params)
+}

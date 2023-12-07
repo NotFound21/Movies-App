@@ -16,7 +16,7 @@ var { width, height } = Dimensions.get("window");
 export default function carouselMovies({ data }) {
   const navigation = useNavigation();
   const handleClick = (item) => {
-    navigation.navigate("Movie", item);
+    navigation.navigate("Movie", item.imdbID);
   };
 
   return (
@@ -38,7 +38,7 @@ export default function carouselMovies({ data }) {
 }
 
 const MovieCard = ({ item, handleClick }) => {
-  console.log("item.Poster", item.Poster);
+  //console.log("item.Poster", item.Poster);
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image

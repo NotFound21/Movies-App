@@ -18,13 +18,15 @@ import CarouselMovies from "../components/carouselMovies";
 import MovieList from "../components/movieList";
 import { popularMovies, releasesMovies } from "../api/moviedb";
 import { useNavigation } from "@react-navigation/native";
+import FavoriteList from "../components/favoriteList";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ios = Platform.OS == "ios";
 const topMargin = ios ? "" : " mt-9";
 export default function HomeScreen() {
   const [carousel, setCarousel] = useState([]);
   const [movieList, setMovieList] = useState([]);
-  const [topRated, setTopRated] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [isactive, setisActive] = useState(false);
   const [isLoading, setIsloading] = useState(false);
   const [Loading, setLoading] = useState(true);
@@ -32,20 +34,40 @@ export default function HomeScreen() {
   useEffect(() => {
     getMovies();
     getPopular();
-  }, []);
+    const unsubscribeFocus = navigation.addListener("focus", () => {
+      getFavorite();
+    });
+    return () => {
+      unsubscribeFocus();
+    };
+  }, [navigation]);
+
+  const getFavorite = async () => {
+    setLoading(true);
+    try {
+      let favorites = await AsyncStorage.getItem("favoriteMovies");
+      if (!favorites) {
+        favorites = [];
+      } else {
+        favorites = JSON.parse(favorites);
+        setFavorites(favorites);
+        //console.log(favorites);
+      }
+    } catch (error) {
+      console.error("Error en favoritas:", error);
+    }
+  };
 
   const getMovies = async () => {
     const data = await releasesMovies();
-    //console.log("get trending movies: ", data);
     if (data && data.Search) setMovieList(data.Search);
     setLoading(false);
   };
   const getPopular = async () => {
     const data = await popularMovies({
       s: "saw",
-      page: '1'
-  });
-    //console.log("get trending movies: ", data);
+      page: "1",
+    });
     if (data && data.Search) setCarousel(data.Search);
     setLoading(false);
   };
@@ -95,9 +117,8 @@ export default function HomeScreen() {
         {/* Componente para listar las peliculas por estrenar */}
         <MovieList title="Estrenos" data={movieList} />
         {/* Componente para mostrar las peliculas mas puntuadas */}
-        {/* <MovieList title="Mejores Puntuadas" data={topRated} /> */}
+        <FavoriteList title="Mis Favoritas" data={favorites} />
       </ScrollView>
     </View>
   );
 }
-("");
