@@ -6,6 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import MovieScreen from "../screens/MovieScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import SearchScreen from "../screens/SearchScreen";
+import FavoriteMovies from "../screens/favoritesMovies";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,11 @@ export default function AppNavigation() {
           name="Search"
           options={{ headerShown: false }}
           component={SearchScreen}
+        />
+        <Stack.Screen
+          name="favorites"
+          options={{ headerShown: false }}
+          component={FavoriteMovies}
         />
       </Stack.Navigator>
     </NavigationContainer>
