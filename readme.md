@@ -37,6 +37,14 @@ dependencias utilizadas:
     "rn-overlay": "^0.4.0",
     "tailwind-rn": "^4.2.0"
   },
+
+## ejecucion en android studio o expo app
+
+```
+npx expo start
+
+```
+  
 ## Posible Errores
 ir a: 
 nodeModules/react-native/index.js
@@ -66,3 +74,4 @@ a esto:
 
 ![Se utiliza react-native 0.72.6 debido a su version estable en relacion a las dependencias de las librerias](https://github.com/NotFound21/Movies-App/blob/master/assets/images/react-native.png?raw=true)
 
+Se Subirá APK pronto...
