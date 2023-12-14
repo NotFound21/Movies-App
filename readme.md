@@ -75,3 +75,63 @@ a esto:
 ![Se utiliza react-native 0.72.6 debido a su version estable en relacion a las dependencias de las librerias](https://github.com/NotFound21/Movies-App/blob/master/assets/images/react-native.png?raw=true)
 
 Se Subirá APK pronto...
+
+## Pre-requisitos
+
+Para trabajar en el proyecto y ejecutar la aplicación, los desarrolladores necesitarán lo siguiente:
+
+- Node.js (v16.0 o superior)
+- npm (v8.0 o superior) o Yarn (v1.22 o superior)
+- Expo CLI (instalado globalmente)
+- Una clave de API válida de OMDb API
+- Android Studio o Xcode para ejecutar emuladores o Expo App en android y/o IOS
+
+## Instalación
+
+Para iniciar el entorno de desarrollo y ejecutar la aplicación, siga estos pasos:
+
+1. Clonar el repositorio desde el origen.
+2. Navegar dentro del directorio del proyecto `cd movies-app`.
+3. Ejecutar `npm install` o `yarn install` para instalar dependencias.
+4. Iniciar el servidor de desarrollo con `expo start`.
+
+## Uso de la Aplicación
+
+La aplicación Cinephile ofrece las siguientes funcionalidades:
+
+- **Búsqueda de Películas y Series**: Permite a los usuarios buscar películas y series por título.
+
+- **Visualización de Detalles**: Al seleccionar un resultado de búsqueda, los usuarios pueden ver detalles extensos de la película o serie seleccionada.
+
+- **Filtros de Búsqueda**: Establezca diferentes parámetros de búsqueda como año de lanzamiento, tipo (película, serie, episodio) y Nombre.
+
+
+- **Favoritos**: Se guardan peliculas favoritas y se puede revisar un listado y consultar informacion detallada de dichas peliculas
+
+Movies-App/
+├── assets/
+│   ├── images/
+│   └── icons/
+├── src/
+│   ├── api/
+│   │   └── omdbClient.js
+│   ├── components/
+│   │   ├── movieList.js
+│   │   └── ...
+│   ├── navigation/
+│   │   └── AppNavigator.js
+│   ├── screens/
+│   │   ├── HomeScreen.js
+│   │   ├── DetailsScreen.js
+│   │   └── SearchScreen.js
+│   │   └── ...
+│   ├── utils/
+│   │   └── constants.js
+│   ├── theme/
+│   │   └── index.js
+│   └── App.js
+├── app.json
+├── package.json
+└── README.md
+│── tailwind.config.js
+```
