@@ -107,7 +107,7 @@ La aplicación Cinephile ofrece las siguientes funcionalidades:
 
 
 - **Favoritos**: Se guardan peliculas favoritas y se puede revisar un listado y consultar informacion detallada de dichas peliculas
-
+```
 Movies-App/
 ├── assets/
 │   ├── images/
