@@ -114,7 +114,7 @@ Movies-App/
 │   └── icons/
 ├── src/
 │   ├── api/
-│   │   └── omdbClient.js
+│   │   └── moviedb.js
 │   ├── components/
 │   │   ├── movieList.js
 │   │   └── ...
