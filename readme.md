@@ -45,7 +45,7 @@ npx expo start
 
 ```
   
-## Posible Errores
+## Posible Errores con "ViewPropTypes():"
 ir a: 
 nodeModules/react-native/index.js
 modificar: 
